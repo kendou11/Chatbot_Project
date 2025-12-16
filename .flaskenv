@@ -1,3 +1,4 @@
-FLASK_APP=main
+FLASK_APP=app.py
 FLASK_ENV=development
 FLASK_DEBUG=true
+CHOKIDAR_USEPOLLING=true
