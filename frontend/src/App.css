@@ -1,5 +1,90 @@
-# Header Css
-.Header-all {display:flex; justify-content:center;}
-.nav-logo {width:1200px; background-Color: #F3EEFF; display: flex; justify-content: space-between; align-items: center;}
-.logo {width: 150px; margin: 10px 0 0 20px;}
-.login-menu {margin: 0 20px 0 0;}
+/* ----------------------------------------------------- */
+/* Header */
+/* ----------------------------------------------------- */
+.Header-all {height: 74px;}
+.logo {width: 130px; margin-bottom: -10px;}
+
+
+
+/* ----------------------------------------------------- */
+/* AI 소개 (메인 이미지) */
+/* ----------------------------------------------------- */
+.Introduce {display: flex; justify-content: center;}
+.AI_introduce_img {width: 1200px;}
+
+
+/* ----------------------------------------------------- */
+/* 멤버십 소개 */
+/* ----------------------------------------------------- */
+.service_section {display: flex; justify-content: center; align-items: center;}
+.membership_img {width: min(60vw, 670px); aspect-ratio: 670 / 400; background-image: url("../public/img/membership.png"); background-size: contain; background-position: center; background-repeat: no-repeat; position: relative; margin-top: clamp(-40px, -4vw, -16px);}
+.membership_gif {width: clamp(105px, 18vw, 200px); position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; z-index: 2;}
+
+
+/* ----------------------------------------------------- */
+/* AI Basic Category */
+/* ----------------------------------------------------- */
+.AI-category h2 {display: flex; gap: 20px; justify-content: center; margin-top: 50px;}
+.circle-sm { width: 90px; height: 90px; border-radius: 50%; background-color: #6c757d; color: white; display: flex; justify-content: center; align-items: center; font-size: 15px;}
+
+
+/* ----------------------------------------------------- */
+/* AI Membership Category */
+/* ----------------------------------------------------- */
+.circle-lg { width: 180px; height: 180px; border-radius: 50%; background-color: #6c757d; color: white; display: flex; justify-content: center; align-items: center; font-size: 20px;}
+
+/* ----------------------------------------------------- */
+/* Footer */
+/* ----------------------------------------------------- */
+.Footer_navBar {padding-top: 0; padding-bottom: 0;}
+
+
+/* 로그인존 */
+.login-page {height: 800px;display: grid; place-items: center;}
+.login-card {width: 420px; height: 650px; background-color: #F3EEFF;padding: 34px 34px 28px;box-shadow: 0 10px 30px rgba(0,0,0,0.08);}
+
+.login-avatar {width: 150px;height: 150px; border-radius: 999px; background-color: white;margin: 0 auto 18px;display: grid;place-items: center;}
+.login-avatar img {width: 100px;height: 100px;object-fit: contain;}
+
+.login-form {display: grid;gap: 10px;}
+.login-label {font-size: 22px;font-weight: 800;color: #111;margin-top: 6px;}
+.login-input {height:44px;border: 0;outline: none;background-color: #fff;padding: 0 12px;font-size: 16px;}
+
+.login-forgot {margin-top: 6px;background: transparent;border: 0;padding: 0;text-align: left;color: #222;font-size: 14px;cursor: pointer;}
+
+.btn-login {margin-top: 8px;height: 52px;border: 0;background: #9b96d8;color: #fff;font-size: 24px;font-weight: 800;cursor: pointer;}
+.btn-signup {height: 52px;border: 0;background: #c8c5ff;color: #111;font-size: 26px; font-weight: 900;cursor: pointer;}
+
+.social-row {display: flex;justify-content: space-between;gap: 18px;margin-top: 18px;}
+.social {width: 64px;height: 64px;border-radius: 999px;border: 0;font-size: 30px;font-weight: 900;cursor: pointer;}
+
+.social.N {background: #22c55e;color: #fff;}
+.social.K {background: #fde647;color: #111;}
+.social.G {background: #6366f1;color: #fff;}
+
+@media (max-width:400px){
+    .login-card {width: caic(100vh - 32px);}
+}
+
+
+/*--------------- 회원가입존----------------- */
+.signup-bs-page {background: #fff;}
+
+ .signup-bs-divider {height: 2px; background: #c9c9ff;}
+
+ .signup-bs-arrow {color: #d11; font-weight: 800;font-size: 13px;}
+ .signup-bs-arrow span {margin: 0 6px;}
+
+ .signup-bs-sns .btn {border-radius: 10px; font-weight: 800;border: 1px solid #e6e6e6; display: flex;align-items: center;justify-content: center;gap: 10px;}
+
+ .signup-bs-badge {width: 26px;height: 26px;border-radius: 7px;display: inline-flex;align-items: center;justify-content: center;font-weight: 900;}
+
+ .signup-bs-btn-naver {background: #1ec800 !important; border-color: #1ec800 !important; color: #fff !important;}
+ .signup-bs-btn-kakao {background: #fee500 !important; border-color: #fee500 !important; color: #111 !important;}
+ .signup-bs-btn-google {background: #fff !important;color: #111;}
+ .signup-bd-badge.goole {border: 1px solid #e6e6e6;}
+
+ /* 표 레이아웃 */
+ .singup-bs-table {border:1px solid #ddd;}
+
+ .signup-bs-left {width: 170px;font-weight: 900;border-right: 1px solid #ddd;background: #fff;vertical-align: top;padding: 16px 12px !important;}

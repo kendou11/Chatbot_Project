@@ -1,8 +1,16 @@
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Route, Routes } from 'react-router-dom';
+
 import React, { useEffect, useState } from 'react';
 import { Test_api, User_api, createUser } from './api/User_Api';  //api 불러온거 사용하기 위한 코드
 import { TestView, UserListView, UserFormView } from './components/UserView';
+
 import Header from './components/common/Header.jsx'
+import Footer from './components/common/Footer.jsx'
+import Main from './components/Main.jsx'
+import Login from './components/userbasic/Login.jsx'
+import Signup from './components/userbasic/Signup.jsx'
 
 
 function App() {
@@ -38,6 +46,13 @@ function App() {
     return (
         <>
         <Header/>
+        <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Signup" element={<Signup />} />
+        </Routes>   
+        <Footer/>      
+        
         <TestView test={test} />
         <UserListView users={user} />
         <UserFormView
