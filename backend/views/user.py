@@ -112,34 +112,26 @@ def add_user():
 '''
 
 
-@user_bp.route("/users/login", methods=["GET"])
+@user_bp.route("/users/login", methods=["POST"])
 def user_login():
     """로그인 검증 API """
-    email = request.args.get('email')
-    password = request.args.get('password')
+    data= request.get_json()
+    email = data.get('email')
+    password = data.get('password')
 
     # 사용자와 비밀번호 전달 받지 못했을 때
     if not email or not password:
         return jsonify({'success': False, 'message': '이메일과 비밀번호를 입력하세요.'}), 400
 
-    data = User.query.filter_by(user_email=email).first()
+    user_data = User.query.filter_by(user_email=email).first()
 
     # 사용자 없거나 비밀번호 불일치할 때
-    if not data or not check_password_hash(data.user_password, password):
+    if not user_data or not check_password_hash(user_data.user_password, password):
         return jsonify({'success': False, 'message': '이메일 또는 비밀번호가 틀립니다.'}), 401
 
     # 로그인 성공 시 닉네임, 이메일 반환
     return jsonify({
         'success': True,
         'message': '로그인 성공',
-        'user': {
-            'nickname': data.user_nickname,  # 프론트에서 표시/토큰 생성용
-            'email': data.user_email
-        }
+        "nickname": user_data.user_nickname,
     })
-
-
-# 라우트 이용 방법에 대해 연습용 글자 출력
-@user_bp.route('/test')
-def test():
-    return jsonify({"msg": "Flask OK"})

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../api/User_Api"; // 로그인 API
-import { Col, Form, Row } from 'react-bootstrap';
+import { loginUser, AuthUtils } from "../../api/User_Api"; // 로그인 API
+import { Form } from 'react-bootstrap';
 
 export default function Login() {
   const [email, setemail] = useState("");
@@ -10,9 +10,6 @@ export default function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate()
 
-  // 클라이언트에서 간단한 토큰 생성 (Base64 인코딩)-> 이 부분은 공부가 더 필요함 토큰 생성
-  // 원하고자 하는 구현 기능 로그인시 토큰 생성 및 토큰 발행 시간도 생성 1시간 지나면 자동 삭제
-  // 5분남았을떄 갱신할꺼냐 물어볼꺼임
 
   //실제 폼 저장라인
   const onSubmit = async(e) => {
@@ -25,26 +22,13 @@ export default function Login() {
 
        if (data.success) {
            console.log("✅ 로그인 성공 응답:", data); // 백엔드 응답 전체 나중에 추가할 부분
+           console.log("🎉 로그인 완료! 메인으로 이동합니다."); // 이거 뜨면 로그인 되는거임
 
-        const userSession = {
-          ...data.user,                    // nickname, email
-          timestamp: Date.now(),
-          expiresAt: Date.now() + 60 * 60 * 1000, // 1시간 후 만료
-        };
+           //로그인값 저장 및 토큰 생성해주기
+           AuthUtils.login(data.nickname);
+           console.log("✅ AuthUtils.login 완료 - 닉네임 토큰:", data.nickname);
 
-        console.log("✅ 세션 객체 생성:", userSession); // 세션 객체 확인 나중에 삭제할꺼임
-        console.log("🎉 로그인 완료! 메인으로 이동합니다."); // 이거 뜨면 로그인 되는거임
-
-         {/*수정해야할 부분*/}
-        localStorage.setItem("userSession", JSON.stringify(userSession));
-        console.log("✅ localStorage 저장 완료"); // 저장 완료 나중에 삭제할꺼임
-        navigate("/ ");
-
-        //추가
-        localStorage.setItem('token', 'logged-in'); //token 키 저장
-        window.dispatchEvent(new Event("auth-change"));
-
-        navigate("/");
+            navigate("/");
       } else {
           console.error("❌ 로그인 실패:", data.message);
           setError(data.message);
@@ -53,7 +37,6 @@ export default function Login() {
         console.error("💥 로그인 에러:", err.message);
         setError(err.message);
     } finally {
-
       setLoading(false);
     }
   };
@@ -76,6 +59,8 @@ export default function Login() {
             </Form.Label>
 
             <Form.Control
+              id="email"
+              name="email"
               className="login-input"
               type="email"
               value={email}

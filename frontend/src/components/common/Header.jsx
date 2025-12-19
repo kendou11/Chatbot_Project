@@ -1,20 +1,22 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { isLoggedIn, clearToken } from "../../utils/auth.jsx"; // 경로는 프로젝트에 맞게 조정
+import { AuthUtils } from "../../api/User_Api";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [login, setLogin] = useState(isLoggedIn());
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
-    const syncAuth = () => setLogin(isLoggedIn());
+    const syncAuth = () => {setLogin(AuthUtils.isLoggedIn());};
     window.addEventListener("auth-change", syncAuth);
+    syncAuth();
+
     return () => window.removeEventListener("auth-change", syncAuth);
   }, []);
 
   const handleLogout = () => {
-    clearToken();
+    AuthUtils.logout();
     navigate("/");
   };
 
