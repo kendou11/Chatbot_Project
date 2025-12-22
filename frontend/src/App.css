@@ -268,6 +268,9 @@ html {overflow-y: scroll;}
 
 
 .mypage-content {max-width: 1000px; margin: 50px auto;}
-.mypage-img {max-width: 300px; margin-left: -30px;}
-.mypage-moneybox {display:flex; border-top:5px solid #6868AC; padding:20px 0px; align-items:center;}
+.mypage-img {max-width: 300px; margin-top: -30px;}
+.mypage-box {display:flex; border-top:5px solid #6868AC; padding:10px 0px; align-items:center; max-width: 400px;}
+.mypage-moneybox {display:flex;  align-items:center; max-width: 400px;}
 .mypage-money {display: flex; border-radius: 5px; border:2px solid #c5c5c563; min-width: 200px; min-height: 40px; align-items: center; padding-left: 5px; margin-right: 10px;}
+.mypage-membership {min-height: 355px; border: 2px solid #6868ac4a; border-radius: 10px; padding: 15px 0 0 10px;}
+.mypage-membership1 {min-height: 355px; border: 2px solid #6868ac4a; border-radius: 10px; padding: 15px 10px 0 10px;}

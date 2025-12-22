@@ -6,9 +6,20 @@ import { AuthUtils } from "../../api/User_Api";
 const Header = () => {
   const navigate = useNavigate();
   const [login, setLogin] = useState(false);
+  const [nickname, setNickname] = useState("");
 
   useEffect(() => {
-    const syncAuth = () => {setLogin(AuthUtils.isLoggedIn());};
+    const syncAuth = () => {
+      const isLogin = AuthUtils.isLoggedIn();
+      setLogin(isLogin);
+
+      if (isLogin) {
+        setNickname(AuthUtils.getNickname());
+      } else {
+        setNickname("");
+      }
+    };
+
     window.addEventListener("auth-change", syncAuth);
     syncAuth();
 
@@ -39,11 +50,12 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Nav.Link as="button" onClick={handleLogout} style={{ background: "none", border: "none", padding: "8" }}>
-                  로그아웃
-                </Nav.Link>
+                <Nav.Link> {nickname}님 </Nav.Link>
                 <Nav.Link href="/MyPage">마이페이지</Nav.Link>
                 <Nav.Link href="/ChatList">대화목록</Nav.Link>
+                <Nav.Link onClick={handleLogout} style={{ background: "none", border: "none", padding: "8" }}>
+                  로그아웃
+                </Nav.Link>
               </>
             )}
           </Nav>

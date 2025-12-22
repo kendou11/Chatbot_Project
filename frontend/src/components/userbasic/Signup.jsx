@@ -198,8 +198,8 @@ export default function Signup() {
                                     <td className="signup-bs-mid">
                                         <div className="signup-bs-grid">
 
-                                            {/* 아이디: 실시간+수동 중복체크 */}
-                                            <div className="signup-bs-label">아이디</div>
+                                            {/* 닉네임: 실시간+수동 중복체크 */}
+                                            <div className="signup-bs-label">닉네임</div>
                                             <InputGroup size="sm">
                                                 <Form.Control name="nickname" value={form.nickname} onChange={onChange}
                                                     className={errors.nickname ? 'is-invalid' : available.nickname === true ? 'is-valid' : ''}
@@ -213,10 +213,10 @@ export default function Signup() {
                                             </InputGroup>
                                             {/* 에러메세지 */}
                                             {errors.nickname && <div className="form-text text-danger small mb-2">{errors.nickname}</div>}
-                                            {available.nickname === true && <div className="form-text text-success small mb-2">사용가능한 아이디입니다</div>}
+                                            {available.nickname === true && <div className="form-text text-success small mb-2">사용가능한 닉네임입니다</div>}
 
                                             {/*이메일: 실시간+수동 중복체크 */}
-                                            <div className="signup-bs-label">이메일</div>
+                                            <div className="signup-bs-label">이메일(ID)</div>
                                             <InputGroup size="sm">
                                                 <Form.Control name="email" type="email" value={form.email} onChange={onChange}
                                                     className={errors.email ? 'is-invalid' : available.email === true ? 'is-valid' : ''}
