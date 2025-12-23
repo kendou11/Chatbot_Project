@@ -59,7 +59,7 @@ const AIIntroduce = () => {
         };
 
         noticeData();
-    }, []);
+    }, [     ]);
 
     // 총 페이지 수
     const totalPages = useMemo(() => {
