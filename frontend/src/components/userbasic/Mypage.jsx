@@ -1,7 +1,8 @@
-import React,{ useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import { Container, Row, Col, Image, Form, InputGroup, Button } from 'react-bootstrap';
 import { updateProfile } from '../../api/Mypage_Api';
 import  { AuthUtils }  from '../../api/User_Api';
+import { getMyProfile } from '../../api/Mypage_Api';
 
 
 const Mypage = () => {
@@ -10,6 +11,9 @@ const Mypage = () => {
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [profileFile, setProfileFile] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+
 
   const handleChangeNickname = async () => {
     if (!nickname.trim()) {
@@ -60,7 +64,38 @@ const Mypage = () => {
     alert('회원탈퇴 API 준비 중입니다.');
   };
 
-    if (!AuthUtils.isLoggedIn) {
+  //GPT (유저정보 불러오기)
+  useEffect(() => {
+  if (!AuthUtils.isLoggedIn()) {
+    setLoading(false);
+    return;
+  }
+
+  const fetchProfile = async () => {
+    try {
+      const data = await getMyProfile();
+      setUserInfo(data);
+      setNickname(data.user_nickname || '');
+    } catch (err) {
+      console.error(err);
+      alert('유저 정보를 불러오지 못했습니다.');
+      AuthUtils.logout();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProfile();
+}, []);
+//
+if (loading) {
+  return (
+    <Container className="text-center mt-5">
+      <p>로딩 중...</p>
+    </Container>
+  );
+}
+    if (!AuthUtils.isLoggedIn()) {
         return (
           <div className='mypage-content'>
             <Container>
@@ -75,7 +110,7 @@ const Mypage = () => {
             <Container>
                 <Row>
                     <Col xs={6} md={4}>
-                        <Image src="/img/logo.png" rounded className='mypage-img' />
+                        <Image src={userInfo?.image} rounded className='mypage-img' />
                     </Col>
 
                     <Col xs={12} md={8}>
@@ -83,8 +118,8 @@ const Mypage = () => {
                         <div className='mypage-box'></div>
 
                         
-                        <div className='mypage-moneybox mb-3 mt-4'>
-                            <div className='mypage-money'>현재 잔액</div>
+                        <div className='mypage-moneybox mb-5 mt-4'>
+                            <div className='mypage-money'>현재 잔액 : {userInfo?.user_money}</div>
                             <Button variant="primary">충전하기</Button>
                         </div>
 
@@ -116,7 +151,6 @@ const Mypage = () => {
                         <Form.Label>닉네임 변경</Form.Label>
                         <InputGroup className="mb-1">
                                 <Form.Control
-                                    placeholder="닉네임 변경"
                                     aria-describedby="basic-addon2"
                                     value={nickname}    //닉네임 입력받고 함수 굴리기
                                     onChange={(e) => setNickname(e.target.value)}

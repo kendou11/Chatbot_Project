@@ -29,3 +29,9 @@ export async function updateProfile(updateData) {
 
   return res.data;
 }
+
+// 내 정보 조회
+export async function getMyProfile() {
+  const res = await api.get('/users/mypage');
+  return res.data;
+}

@@ -66,3 +66,13 @@ def update_user_profile(user):
     except Exception:
         db.session.rollback()
         return jsonify({'success': False, 'message': '업데이트 중 오류가 발생했습니다.'}), 500
+
+@mypage_bp.route("/users/mypage", methods=["GET"])
+@token_required
+def get_user_profile(user):
+    return jsonify({
+        "success": True,
+        "user_nickname": user.user_nickname,
+        "user_money": user.user_money,                 
+        "image": user.user_image,
+                }), 200

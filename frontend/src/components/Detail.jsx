@@ -71,6 +71,17 @@ export default function Detail() {
                             </div>
                         ))}
                     </div>
+
+                    {/* 리뷰 작성 */}
+                    <div className="review-box"></div>
+                    
+                    <div className="wf-row">
+                        <form className="review-form">
+                            <textarea className="review-textarea" placeholder="리뷰를 입력하세요"/>
+                            <button className="review-btn"> 등록하기 </button>
+                        </form>
+                    </div>
+
                 </section>
 
                 {/* 하단 */}

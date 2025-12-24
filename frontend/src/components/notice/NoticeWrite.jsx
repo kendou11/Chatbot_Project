@@ -169,7 +169,7 @@ const NoticeWrite = () => {
           {/* 제목 */}
           <Form.Group className="mb-3 NW-sub-title">
             <h6 className="NW-sub-h6">제 목</h6>
-            <Form.Control type="text" placeholder="제목을 입력하세요." className="NW-title-text" />
+            <Form.Control type="text" placeholder="제목을 입력하세요." className="NW-title-text" value={title} onChange={(e) => setTitle(e.target.value)} disabled={isSubmitting}/>
           </Form.Group>
 
           <Form.Group>
@@ -230,7 +230,7 @@ const NoticeWrite = () => {
           {/* 버튼들 */}
           <Row className="justify-content-end">
             <Col xs="auto">
-              <Button variant="success" className="NW_check_button"><i className="fa-solid fa-check"></i>확인</Button>
+              <Button variant="success" className="NW_check_button" type="submit"><i className="fa-solid fa-check"></i>확인</Button>
             </Col>
             <Col xs="auto">
               <Button variant="secondary" className="NW_cancel_button">취소</Button>
