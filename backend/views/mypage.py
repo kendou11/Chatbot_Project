@@ -1,6 +1,10 @@
-from flask import request, jsonify, Blueprint
+#backend/views/mypage.py
+
+from flask import request, jsonify, Blueprint, current_app
 from functools import wraps
 from werkzeug.security import generate_password_hash
+from werkzeug.utils import secure_filename
+import os, uuid
 
 from backend.models import db, User
 from urllib.parse import unquote
@@ -31,28 +35,39 @@ def token_required(f):
 @token_required
 def update_user_profile(user):
     """로그인한 사용자 프로필 수정 API"""
-    data = request.json
+    data = request.form              # multipart/form-data 기준
+    file = request.files.get("image")
 
     updated = False
 
-    # 닉네임 수정 (중복 체크 포함)
+    # 닉네임 수정
     if 'nickname' in data and data['nickname'] != user.user_nickname:
         if User.query.filter_by(user_nickname=data['nickname']).first():
             return jsonify({'success': False, 'message': '닉네임이 이미 사용중입니다.'}), 409
         user.user_nickname = data['nickname']
         updated = True
 
-    # 비밀번호 수정 (user_password) - 옵션
+    # 비밀번호 수정
     if 'password' in data and data['password']:
         user.user_password = generate_password_hash(data['password'])
         updated = True
 
-    # 이미지 수정
-    if 'image' in data:
-        user.user_image = data['image']
+    # 이미지 수정 → backend/static/profile_images 저장
+    if file and file.filename:
+        upload_folder = os.path.join(current_app.root_path, "static", "profile_images")
+        os.makedirs(upload_folder, exist_ok=True)
+
+        ext = os.path.splitext(file.filename)[1]
+        random_name = f"{uuid.uuid4().hex}{ext}"
+        filename = secure_filename(random_name)
+
+        save_path = os.path.join(upload_folder, filename)
+        file.save(save_path)
+
+        user.user_image = f"/static/profile_images/{filename}"
         updated = True
 
-    # 업로드 없을 떄
+    # 아무 것도 안 바뀐 경우
     if not updated:
         return jsonify({'success': False, 'message': '수정할 필드가 없습니다.'}), 400
 

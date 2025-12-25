@@ -1,6 +1,7 @@
-// src/api/Mypage_Api.js
+//frontend/src/api/Mypage_Api.js
 import axios from 'axios';
 import { AuthUtils } from './User_Api';
+
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api',
@@ -19,9 +20,17 @@ api.interceptors.request.use((config) => {
 
 //마이페이지 내에 유저 정보 변경 디버깅까지 완료
 export async function updateProfile(updateData) {
-  const res = await api.patch('/users/mypage', updateData);
+  // 항상 FormData로 보내면 백엔드 request.form/request.files와 100% 매칭됨
+  const formData = new FormData();
+  if (updateData.nickname) formData.append('nickname', updateData.nickname);
+  if (updateData.password) formData.append('password', updateData.password);
+  if (updateData.image instanceof File) formData.append('image', updateData.image);
 
-  // 닉네임이 변경된 경우 토큰도 함께 갱신
+  const res = await api.patch('/users/mypage', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
+  // 닉네임 바뀌었으면 토큰 갱신
   const newNick = res.data?.user?.user_nickname;
   if (newNick && newNick !== AuthUtils.getNickname()) {
     AuthUtils.login(newNick);
@@ -29,6 +38,7 @@ export async function updateProfile(updateData) {
 
   return res.data;
 }
+
 
 // 내 정보 조회
 export async function getMyProfile() {

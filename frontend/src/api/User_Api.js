@@ -1,6 +1,6 @@
-// src/api/user_Api.js
-import axios from 'axios';
+// frrontend/src/api/user_Api.js
 
+import axios from 'axios';
 
 // =====  User전용 API  ============================
 export const protectedApi = axios.create({

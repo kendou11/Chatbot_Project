@@ -13,3 +13,5 @@ npm install @fortawesome/fontawesome-free
 파일 상단에 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 mkdir uploads 이거 실행하여 파일 생성 하기
+
+pip install httpx openai pymongo chromadb

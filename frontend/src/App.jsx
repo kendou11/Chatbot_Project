@@ -21,6 +21,9 @@ import NoticeDetail from './components/notice/NoticeDetail.jsx';
 import BackToTop from "./components/common/BackToTop.jsx";
 import { Outlet } from "react-router-dom"
 
+/* --- [통합 챗봇 컴포넌트 하나만 import] --- */
+import ChatComponent from './components/ChatComponent.jsx';
+
 function App() {
 
     return (
@@ -37,6 +40,8 @@ function App() {
             <Route path='/NoticeWrite' element={<NoticeWrite />} />
             <Route path='/ChatList' element={<ChatList />} />
             <Route path='NoticeDetail' element={<NoticeDetail />} />
+            {/* --- [통합 챗봇 컴포넌트 type에 맞춰서 적어줘야함] --- */}
+            <Route path="/:type" element={<ChatComponent />} />
         </Routes>   
         <Outlet />
         <BackToTop />

@@ -1,5 +1,5 @@
 # backend/views/notice.py
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
@@ -43,22 +43,31 @@ def add_notice():
         if not notice_title or not notice_write:
             return jsonify({"success": False, "error": "제목과 내용 필수"}), 400
 
-        # 이미지 처리
+        #이미지 처리 (static/notice_images)에 저장
         images = request.files.getlist('images')
         image_paths = []
 
         if images:
-            upload_folder = 'uploads'
+            # backend/app.py 기준 static 폴더 안에 notice_images 폴더 생성
+            upload_folder = os.path.join(current_app.root_path, "static", "notice_images")
             os.makedirs(upload_folder, exist_ok=True)
+
             for i, image in enumerate(images):
                 if image and image.filename:
                     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    filename = secure_filename(f"{notice_title[:30]}_{timestamp}_{i}_{image.filename}")
+                    filename = secure_filename(
+                        f"{notice_title[:30]}_{timestamp}_{i}_{image.filename}"
+                    )
+                    # 실제 저장 경로
                     filepath = os.path.join(upload_folder, filename)
                     image.save(filepath)
-                    image_paths.append(f"/uploads/{filename}")
 
-        notice_image = ','.join(image_paths) if image_paths else None
+                    # 클라이언트에서 사용할 URL (백엔드 기준)
+                    # 예: http://localhost:5000/static/notice_images/파일명
+                    image_paths.append(f"/static/notice_images/{filename}")
+
+        notice_image = ",".join(image_paths) if image_paths else None
+
 
         # DB 저장
         notice = Notice(

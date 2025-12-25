@@ -187,6 +187,7 @@ class UseBox(db.Model):
     #     UseBox -> ai N대1
     user = db.relationship("User",backref=db.backref("useboxes", lazy=True),lazy=True)
     ai = db.relationship("BasicAI",backref=db.backref("useboxes", lazy=True),lazy=True)
+    chat_logs = db.relationship("ChatLog", lazy=True, cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<UseBox {self.use_id} user={self.user_id} ai={self.ai_id}>"
@@ -295,4 +296,32 @@ class Comment(db.Model):
             "comment_write": self.comment_write,
             "comment_new": self.comment_new.isoformat() if self.comment_new else None,
             "comment_delete": self.comment_delete,
+        }
+
+class ChatLog(db.Model):
+    __tablename__ = 'chat_log'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True) # 대화 일련번호
+    usebox_id = db.Column(db.Integer, db.ForeignKey("usebox.use_id"), nullable=False)
+    question = db.Column(db.Text, nullable=False)                   # 사용자 질문
+    answer = db.Column(db.Text, nullable=False)                     # AI 답변
+    sql_id = db.Column(db.Integer)                                  # 하이브리드 동기화용 ID
+    created_at = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc)) # 생성 시간
+
+    # 관계: ChatLog → UseBox (N:1)
+    # usebox = db.relationship("UseBox", backref=db.backref("chat_logs", lazy=True))
+
+    def __repr__(self):
+        return f"<ChatLog {self.id} usebox={self.usebox_id}>"
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "usebox_id": self.usebox_id,
+            "question": self.question,
+            "answer": self.answer,
+            "sql_id": self.sql_id,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "ai_id": self.usebox.ai_id if self.usebox else None,
+            "user_id": self.usebox.user_id if self.usebox else None,
         }

@@ -1,3 +1,5 @@
+//frontend/src/compinents/userbasic/Mypage.jsx
+
 import React,{ useEffect, useState } from 'react'
 import { Container, Row, Col, Image, Form, InputGroup, Button } from 'react-bootstrap';
 import { updateProfile } from '../../api/Mypage_Api';
@@ -17,17 +19,23 @@ const Mypage = () => {
 
 
   const handleChangeNickname = async () => {
-    if (!nickname.trim()) {
-      alert('닉네임을 입력하세요.');
-      return;
-    }
-    try {
-      const res = await updateProfile({ nickname: nickname.trim() });
-      alert(res.message || '닉네임이 변경되었습니다.');
-      setNickname('');
-    } catch (err) {
-      alert(err.response?.data?.message || '닉네임 변경 실패');
-    }
+      if (!nickname.trim()) {
+        alert('닉네임을 입력하세요.');
+        return;
+      }
+      const currentNick = userInfo?.user_nickname || '';
+      if (nickname.trim() === currentNick) {
+        alert('기존 닉네임과 동일합니다.');
+        return;
+      }
+
+      try {
+        const res = await updateProfile({ nickname: nickname.trim() });
+        alert(res.message || '닉네임이 변경되었습니다.');
+        setNickname('');
+      } catch (err) {
+        alert(err.response?.data?.message || '닉네임 변경 실패');
+      }
   };
 
   const handleChangePassword = async () => {
@@ -49,9 +57,9 @@ const Mypage = () => {
       alert('이미지 파일을 선택하세요.');
       return;
     }
-    // 예시: 파일을 바로 string 경로로 보내는 경우 (실제론 업로드 API 따로 두는 게 좋음)
+
     try {
-      const res = await updateProfile({ image: profileFile.name });
+      const res = await updateProfile({ image: profileFile });
       alert(res.message || '프로필 이미지가 변경되었습니다.');
       setProfileFile(null);
     } catch (err) {
@@ -111,7 +119,11 @@ if (loading) {
             <Container>
                 <Row>
                     <Col xs={6} md={4}>
-                        <Image src={userInfo?.image} rounded className='mypage-img' />
+                        <Image
+                            src={userInfo?.image ? `http://localhost:5000${userInfo.image}` : '/img/default_profile.png'}
+                            rounded
+                            className='mypage-img'
+                        />
                     </Col>
 
                     <Col xs={12} md={8}>
