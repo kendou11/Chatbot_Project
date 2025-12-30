@@ -68,7 +68,7 @@ def chat_usage():
     # 사용자가 요청한 상세 안내 문구 (불렛 포인트 포함) 완벽 복구
     intro_html = f"""
     <div class="initial-text" style="margin-top: 5px;">
-        <b>환영합니다!</b>{user_name}님!</b> {user_name}님의 급변하는 기술의 물결 속에서 당신을 위한 길잡이, 'AI 및 기술 활용 가이드' 챗봇입니다!
+        <b>환영합니다!</b> {user_name}님!</b> {user_name}님의 급변하는 기술의 물결 속에서 당신을 위한 길잡이, 'AI 및 기술 활용 가이드' 챗봇입니다!
     </div>
     <div class="initial-text" style="margin-top: 10px; margin-bottom: 10px;">
         ChatGPT 활용법부터 새로운 AI 도구 배우기, 프로그래밍 기초 학습, 스마트 기기 활용법까지! 기술에 대한 궁금증과 고민을 쉽고 빠르게 해결해 드릴 준비가 되어 있습니다.

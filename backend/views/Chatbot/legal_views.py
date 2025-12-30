@@ -66,7 +66,7 @@ def chat_usage():
 
     chat_intro_html = f"""
     <div class="initial-text" style="margin-top: 5px;">
-        <b>환영합니다!</b>{user_name}님!</b> {user_name}님의 복잡한 법률 문제를 명쾌하게 풀어드리는 '법률 및 생활 규제 정보' 챗봇입니다!
+        <b>환영합니다!</b> {user_name}님!</b> {user_name}님의 복잡한 법률 문제를 명쾌하게 풀어드리는 '법률 및 생활 규제 정보' 챗봇입니다!
     </div>
     <div class="initial-text" style="margin-top: 10px; margin-bottom: 10px;">
         부동산 계약, 전세 계약 문제, 근로 계약 관련 법률, 새로운 정책이나 규제에 대한 궁금증까지! 어려운 법률 용어도 쉽고 명확하게 설명해 드릴 준비가 되어 있습니다. {user_name}님의 법률 고민을 지금 바로 저와 나눠보세요

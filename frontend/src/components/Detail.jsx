@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import "./Detail.css";
 import * as Api from '../api/AI_Detail_Api.js';
 
@@ -11,6 +11,7 @@ export default function Detail() {  // props로 aiId 받기
     const [newReview, setNewReview] = useState('');
     const [canWrite, setCanWrite] = useState(false);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchDetail();
@@ -19,6 +20,7 @@ export default function Detail() {  // props로 aiId 받기
     const fetchDetail = async () => {
         try {
             const data = await Api.fetchAiDetail(aiId);
+            console.log('📦 API 응답:', data);
             setAiData(data.ai);
             setReviews(data.reviews);
             setCanWrite(data.can_write_review);
@@ -103,7 +105,7 @@ export default function Detail() {  // props로 aiId 받기
 
                 <section className="wf-bottom">
                     <div className="wf-wrap">
-                        <button className="wf-cta" type="button">
+                        <button className="wf-cta" type="button" onClick={() => navigate(`/${aiData.ai_content}`)}>
                             대화 시작하기 (₩{aiData.ai_price})
                         </button>
                     </div>

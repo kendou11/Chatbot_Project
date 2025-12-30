@@ -37,6 +37,19 @@ const AIIntroduce = () => {
                 // MainSummary() 한 번만 호출!
                 const data = await MainSummary();
                 console.log("✅ 메인 데이터 불러오기 성공!", data);
+                // BasicAI 데이터 처리 (같은 response에서)
+                if (data?.success && Array.isArray(data.basic_ai)) {
+                    const mappedBasicAIData = data.basic_ai.map((item) => ({
+                        id: item.ai_id,
+                        name: item.ai_name,
+                        tip: item.ai_tip,
+                        image: item.ai_image,
+                    }));
+                    setBasicAI_Data(mappedBasicAIData);
+                } else {
+                    console.warn("⚠️ BasicAI 데이터 없음:", data?.basic_ai);
+                    setBasicAI_Data([]);
+                }
 
                 // 게시판 데이터 처리
                 if (data?.success && Array.isArray(data.notice)) {
@@ -52,20 +65,7 @@ const AIIntroduce = () => {
                     setNoticeData([]);
                 }
 
-                // BasicAI 데이터 처리 (같은 response에서)
-                if (data?.success && Array.isArray(data.basic_ai)) {
-                    const mappedBasicAIData = data.basic_ai.map((item) => ({
 
-                        name: item.ai_name,
-                        tip: item.ai_tip,
-                        image: item.ai_image,
-                        route: item.ai_content
-                    }));
-                    setBasicAI_Data(mappedBasicAIData);
-                } else {
-                    console.warn("⚠️ BasicAI 데이터 없음:", data?.basic_ai);
-                    setBasicAI_Data([]);
-                }
 
             } catch (error) {
                 console.error("❌ 메인 데이터 불러오기 실패:", error);
@@ -152,89 +152,26 @@ const AIIntroduce = () => {
                 <Container className="AiCategory_container">
                     <Row className="circle_Row">
                         <h1>Basic Category</h1>
-            {Loading ? (
-                <div style={{ padding: 20, textAlign: "center", width: "100%" }}>
-                    카테고리 불러오는 중...
-                </div>
-            ) : basicAI_Data.length > 0 ? (
-                basicAI_Data.slice(0, 8).map((item, index) => (  // 최대 6개만)
-                    <Col key={item.name || index} xs={6} md={6} className="AICategory_circle" onClick={() => navigate(`/${item.route}`)}>
-                        <div className="circle_div">
-                            <Image
-                                src={item.image || `/img/default-category-${index + 1}.png`}
-                                roundedCircle
-                            />
-                            <div className="circle_text d-none d-lg-block">
-                                <h2>{item.name}</h2>
-                                <p>{item.tip}</p>
+                        {Loading ? (
+                            <div style={{ padding: 20, textAlign: "center", width: "100%" }}>
+                                카테고리 불러오는 중...
                             </div>
-                        </div>
-                    </Col>
-                ))
-            ) : (
-                // 기본 정적 데이터 (API 실패시)
-                <>
-                        <Col xs={6} md={4} className="AICategory_circle">
-                            <div className="circle_div">
-                                <Image src="/img/Business.png" roundedCircle />
-                                <div className="circle_text d-none d-lg-block">
-                                    <h2>비지니스</h2>
-                                    <p>성장과 수익 구조를<br />설계합니다.</p>
-                                </div>
-                            </div>
-                        </Col>
-
-                        <Col xs={6} md={4} className="AICategory_circle">
-                            <div className="circle_div">
-                                <Image src="/img/Designer.png" roundedCircle />
-                                <div className="circle_text d-none d-lg-block">
-                                    <h2>디자이너</h2>
-                                    <p>사용자의 경험을<br />설계합니다.</p>
-                                </div>
-                            </div>
-                        </Col>
-
-                        <Col xs={6} md={4} className="AICategory_circle">
-                            <div className="circle_div">
-                                <Image src="/img/Developer.png" roundedCircle />
-                                <div className="circle_text d-none d-lg-block">
-                                    <h2>개발/엔지니어</h2>
-                                    <p>아이디어를 실제 서비스로<br />구현합니다.</p>
-                                </div>
-                            </div>
-                        </Col>
-
-                        <Col xs={6} md={4} className="AICategory_circle">
-                            <div className="circle_div">
-                                <Image src="/img/Legal.png" roundedCircle />
-                                <div className="circle_text d-none d-lg-block">
-                                    <h2>법률/재무</h2>
-                                    <p>리스크를 관리하고<br />안정성을 확보합니다.</p>
-                                </div>
-                            </div>
-                        </Col>
-
-                        <Col xs={6} md={4} className="AICategory_circle">
-                            <div className="circle_div">
-                                <Image src="/img/Planner.png" roundedCircle />
-                                <div className="circle_text d-none d-lg-block">
-                                    <h2>기획/PM</h2>
-                                    <p>제품의 방향과 완성도를<br />관리합니다.</p>
-                                </div>
-                            </div>
-                        </Col>
-
-                        <Col xs={6} md={4} className="AICategory_circle">
-                            <div className="circle_div">
-                                <Image src="/img/Medical.png" roundedCircle />
-                                <div className="circle_text d-none d-lg-block">
-                                    <h2>의료/서비스</h2>
-                                    <p>전문적인 의료 경험을<br />제공합니다.</p>
-                                </div>
-                            </div>
-                        </Col>
-                </>
-            )}
+                        ): 
+                                basicAI_Data.slice(0, 8).map((item, index) => (  // 최대 6개만)
+                                    console.log("👉 클릭 아이템:", item),
+                                    <Col key={item.name || index} xs={6} md={6} className="AICategory_circle" onClick={() => navigate(`/api/ai/${item.id}`)}>
+                                        <div className="circle_div">
+                                            <Image
+                                                src={item.image || `/img/default-category-${index + 1}.png`}
+                                                roundedCircle
+                                            />
+                                            <div className="circle_text d-none d-lg-block">
+                                                <h2>{item.name}</h2>
+                                                <p>{item.tip}</p>
+                                            </div>
+                                        </div>
+                                    </Col>
+                                ))}
 
                     </Row>
                 </Container>

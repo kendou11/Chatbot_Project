@@ -69,7 +69,7 @@ def chat_usage():
     # [수정] intro_html 내의 닉네임 누락 및 고정 이름 수정
     chat_intro_html = f"""
     <div class="initial-text" style="margin-top: 5px;">
-        <b>환영합니다, {user_name}님!</b> {user_name}님의 편리하고 스마트한 일상을 위한 '일상생활 문제 해결' 챗봇입니다
+        <b>환영합니다!</b> {user_name}님! {user_name}님의 편리하고 스마트한 일상을 위한 '일상생활 문제 해결' 챗봇입니다
     </div>
     <div class="initial-text" style="margin-top: 10px; margin-bottom: 10px;">
         오늘 저녁 메뉴 고민, 새로 산 가전제품 사용법, 아이와 즐거운 시간을 보내는 방법, 반려동물 양육 팁, 집수리 노하우, 이웃 지역 정보까지! 삶의 질을 높이고 일상 속 불편함을 해소하기 위한 모든 질문에 제가 명쾌한 답변을 드릴 준비가 되어 있습니다.

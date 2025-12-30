@@ -44,6 +44,7 @@ def get_main_summary():
 
     ai_list = [
         {
+            "ai_id": ai.ai_id,
             "ai_name": ai.ai_name,
             "ai_tip": ai.ai_tip,
             "ai_image": ai.ai_image,

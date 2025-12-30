@@ -67,7 +67,7 @@ def chat_usage():
     # [수정] intro_html 내의 모든 고정 이름을 {user_name} 변수로 교체
     chat_intro_html = f"""
     <div class="initial-text" style="margin-top: 5px;">
-        <b>환영합니다, {user_name}님!</b> {user_name}님의 성공적인 내일을 설계하는 '커리어 및 취업 준비' 챗봇입니다!
+        <b>환영합니다!</b> {user_name}님! {user_name}님의 성공적인 내일을 설계하는 '커리어 및 취업 준비' 챗봇입니다!
     </div>
     <div class="initial-text" style="margin-top: 10px; margin-bottom: 10px;">
         원하는 직무로의 이직, 첫 취업의 문턱, 혹은 나만의 경력 로드맵 설정까지! <b>{user_name}님</b>의 소중한 꿈이 실현될 수 있도록 실질적인 전략을 함께 고민해 드릴게요.
