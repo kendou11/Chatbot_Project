@@ -1,40 +1,13 @@
 /* ---------------------------------------------- */
 /* 회원가입 */
 /* ---------------------------------------------- */
-.signup-bs-container {max-width: 1200px;}
 .signup-bs-page { background: #fff;}
-
-.text-center {padding: 50px; margin-bottom: 30px; background-color: #f3eeffa4;}
+.text-center {padding: 50px; margin: 60px 0; background-color: #f3eeffa4;}
 .sns_login_text {font-size: 25px; font-weight: 400; padding-bottom: 10px;}
-
- .signup-bs-divider {height: 2px; background: #c9c9ff;}
-
- .signup-bs-arrow {color: #d11; font-weight: 800;font-size: 13px;}
- .signup-bs-arrow span {margin: 0 6px;}
-
- .signup-bs-sns .btn {border-radius: 10px; font-weight: 800;border: 1px solid #e6e6e6; display: flex;align-items: center;justify-content: center;gap: 10px;}
-
- .signup-bs-badge {width: 26px;height: 26px;border-radius: 7px;display: inline-flex;align-items: center;justify-content: center;font-weight: 900;}
-
-
-
-
-.signup_title {width: 100px; height: 35px; font-size: 23px; margin: 20px 0 20px 0; border-bottom: 2px solid #c9c9ff; display: flex; justify-content: center;}
-
- /* 부가정보 배경 섹션 */
- .signup-bs-alt td {background: #c9c9ff;}
- .signup-bs-left.alt {background: #fff;}
-
- /* 회원정보 입력 gird */
- .signup-bs-gird {display: grid; grid-template-columns: 90px 1fr;gap: 10px 12px;align-items: center;}
-.signup-bs-label {font-size: 13px;font-weight: 700;}
-.signup-bs-label2 {font-size: 13px; font-weight: 700;}
-
-/* 버튼 */
-.signup-bs-avatar {display: flex;flex-direction: column;align-items: center;}
+.signup-bs-arrow {color: #d11; font-weight: 800;font-size: 13px;}
+.signup-bs-arrow span {margin: 0 6px;}
 
 .social-login{width: 100%; max-width: 520px; margin: 0 auto; display: grid; gap: 14px;}
-
 .social-btn{width: 100%; height: 50px; border-radius: 12px; border: 1px solid transparent; display: flex; align-items: center; justify-content: center; position: relative; font-size: 18px; font-weight: 700; letter-spacing: -0.2px; cursor: pointer;}
 
 .social-icon{position: absolute; left: 18px; width: 26px; height: 26px;}
@@ -65,6 +38,104 @@
     height: 24px;
   }
 }
+
+.signup_box_title {border-bottom: 3px solid #B9B6FF; display: flex; justify-content: center; padding: 50px 0; border-top: 3px solid #B9B6FF;}
+.signup_box_title h4 {font-size: 23px;}
+
+.signup_content {display: flex;}
+
+
+.join-row{
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.join-label{
+  font-size: 13px;
+  font-weight: 700;
+  color: #222; text-align: top;
+}
+
+.req{ color: #d00; margin-left: 2px; }
+
+.join-field{ min-width: 0; }
+.join-ig .form-control,
+.join-input{
+  border-radius: 4px;
+  height: 38px;
+}
+
+.join-btn-outline{
+  border: 1px solid #9a6bff;
+  color: #9a6bff;
+  background: #fff;
+  font-weight: 600;
+  border-radius: 4px;
+  min-width: 92px;
+}
+.join-btn-outline:hover{
+  background: #9a6bff;
+  border: 1px solid #9a6bff;
+  color: #fff;
+}
+
+.join-btn-wide{
+  width: 100%;
+  height: 38px;
+}
+
+.join-btn-disabled{
+  border-radius: 4px;
+  min-width: 120px;
+}
+
+.join-help{
+  margin-top: 6px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* 우측 빨간 점 */
+.join-side{
+  display: flex;
+  justify-content: center;
+}
+.join-dot{
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ff6b6b;
+  display: inline-block;
+}
+
+/* 라디오 간격 */
+.join-radio .form-check{
+  margin-right: 22px;
+}
+
+/* 반응형: 모바일에서는 라벨 위, 입력 아래로 */
+@media (max-width: 768px){
+  .join-row{
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .join-side{ display: none; } /* 점 숨기거나 아래로 */
+  .join-required{
+    position: static;
+    margin-top: 8px;
+    text-align: right;
+  }
+}
+
+.signup_checkbox_title {width: 200px;}
+.signup_checkbox {display: flex;}
+.signup_check_content {font-size: 14px;}
+.signup_checkbox_all_content {padding-bottom: 45px;}
+.signup_button {display: flex; justify-content: end; margin-bottom: 80px;  padding-top: 30px;}
+
+
 
 /* ---------------------------------------------- */
 /* 로그인 */
